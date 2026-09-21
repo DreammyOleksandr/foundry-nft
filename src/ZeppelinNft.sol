@@ -22,4 +22,8 @@ contract ZeppelinNft is ERC721 {
     function tokenURI(uint256 tokenId) public view override returns (string memory) {
         return sTokenIdToUri[tokenId];
     }
+
+    function getTokenCounter() public view returns (uint256) {
+        return sTokenCounter;
+    }
 }
