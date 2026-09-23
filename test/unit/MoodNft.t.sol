@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: UNLICENSED
 pragma solidity ^0.8.30;
 
-import {Test} from "forge-std/Test.sol";
+import {Test, console2} from "forge-std/Test.sol";
 import {MoodNft} from "src/MoodNft.sol";
 
 contract MoodNftTest is Test {
@@ -13,7 +13,13 @@ contract MoodNftTest is Test {
         "data:image/svg+xml;base64,PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0idXRmLTgiPz48c3ZnIHZlcnNpb249IjEuMSIgaWQ9IkxheWVyXzEiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyIgeG1sbnM6eGxpbms9Imh0dHA6Ly93d3cudzMub3JnLzE5OTkveGxpbmsiIHg9IjBweCIgeT0iMHB4IiB2aWV3Qm94PSIwIDAgMTIyLjg4IDEyMi44OCIgc3R5bGU9ImVuYWJsZS1iYWNrZ3JvdW5kOm5ldyAwIDAgMTIyLjg4IDEyMi44OCIgeG1sOnNwYWNlPSJwcmVzZXJ2ZSI+PHN0eWxlIHR5cGU9InRleHQvY3NzIj4uc3Qwe2ZpbGwtcnVsZTpldmVub2RkO2NsaXAtcnVsZTpldmVub2RkO2ZpbGw6I0ZCRDQzMzt9IC5zdDF7ZmlsbC1ydWxlOmV2ZW5vZGQ7Y2xpcC1ydWxlOmV2ZW5vZGQ7ZmlsbDojMTQxNTE4O308L3N0eWxlPjxnPjxwYXRoIGNsYXNzPSJzdDAiIGQ9Ik00NS41NCwyLjExYzMyLjc3LTguNzgsNjYuNDUsMTAuNjcsNzUuMjMsNDMuNDNjOC43OCwzMi43Ny0xMC42Nyw2Ni40NS00My40Myw3NS4yMyBjLTMyLjc3LDguNzgtNjYuNDUtMTAuNjctNzUuMjMtNDMuNDNDLTYuNjcsNDQuNTcsMTIuNzcsMTAuODksNDUuNTQsMi4xMUw0NS41NCwyLjExeiIvPjxwYXRoIGNsYXNzPSJzdDEiIGQ9Ik00NS43OCwzMi4yN2M0LjMsMCw3Ljc4LDUuMDUsNy43OCwxMS4yN2MwLDYuMjItMy40OCwxMS4yNy03Ljc4LDExLjI3Yy00LjMsMC03Ljc4LTUuMDUtNy43OC0xMS4yNyBDMzgsMzcuMzIsNDEuNDgsMzIuMjcsNDUuNzgsMzIuMjdMNDUuNzgsMzIuMjd6IE0yOC4xMiw5NC43YzE2LjY5LTIxLjYzLDUxLjAxLTIxLjE2LDY1Ljc4LDAuMDRsMi40MS0yLjM5IGMtMTYuNTQtMjguMDctNTEuNTYtMjkuMDctNzAuNy0wLjE1TDI4LjEyLDk0LjdMMjguMTIsOTQuN3ogTTc3LjEsMzIuMjdjNC4zLDAsNy43OCw1LjA1LDcuNzgsMTEuMjdjMCw2LjIyLTMuNDgsMTEuMjctNy43OCwxMS4yNyBjLTQuMywwLTcuNzgtNS4wNS03Ljc4LTExLjI3QzY5LjMxLDM3LjMyLDcyLjgsMzIuMjcsNzcuMSwzMi4yN0w3Ny4xLDMyLjI3eiIvPjwvZz48L3N2Zz4=";
 
     function setUp() public {
-        nft = new MoodNft(SAD_IMAGE_URI, HAPPY_IMAGE_URI);
+        nft = new MoodNft(HAPPY_IMAGE_URI, SAD_IMAGE_URI);
         USER = msg.sender;
+    }
+
+    function testViewTokenUri() public {
+        vm.prank(USER);
+        nft.mint();
+        console2.log(nft.tokenURI(0));
     }
 }

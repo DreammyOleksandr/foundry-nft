@@ -9,6 +9,8 @@ enum Mood {
     SAD
 }
 
+error MoodNft__NotApprovedOrOwner();
+
 contract MoodNft is ERC721 {
     string private constant _name = "MoodNft";
     string private constant _symbol = "MNFT";
@@ -17,11 +19,13 @@ contract MoodNft is ERC721 {
     string private sSadImageUri;
     string private sHappyImageUri;
     mapping(uint256 => Mood) private sTokenIdToMood;
+    address private sOwner;
 
     constructor(string memory happyImageUri, string memory sadImageUri) ERC721(_name, _symbol) {
         sTokenCounter = 0;
         sHappyImageUri = happyImageUri;
         sSadImageUri = sadImageUri;
+        sOwner = msg.sender;
     }
 
     function mint() public {
@@ -31,6 +35,18 @@ contract MoodNft is ERC721 {
 
     function _baseURI() internal pure override returns (string memory) {
         return "data:application/json;base64,";
+    }
+
+    function changeMood(uint256 tokenId) public {
+        if (!_isAuthorized(sOwner, msg.sender, tokenId)) {
+            revert MoodNft__NotApprovedOrOwner();
+        }
+
+        if (sTokenIdToMood[tokenId] == Mood.HAPPY) {
+            sTokenIdToMood[tokenId] = Mood.SAD;
+        } else {
+            sTokenIdToMood[tokenId] = Mood.HAPPY;
+        }
     }
 
     // I don't like this code with much encodings
