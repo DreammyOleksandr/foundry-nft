@@ -5,7 +5,7 @@ import {Script} from "forge-std/Script.sol";
 import {ZeppelinNft} from "src/ZeppelinNft.sol";
 
 contract DeployZeppelinNft is Script {
-    function run() public returns (ZeppelinNft) {
+    function run() external returns (ZeppelinNft) {
         vm.startBroadcast();
         ZeppelinNft zeppelinNft = new ZeppelinNft();
         vm.stopBroadcast();
