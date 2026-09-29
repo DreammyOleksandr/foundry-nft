@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.30;
 
-import {Script, console2} from "forge-std/Script.sol";
+import {Script} from "forge-std/Script.sol";
 import {MoodNft} from "src/MoodNft.sol";
 import {Base64} from "@openzeppelin/contracts/utils/Base64.sol";
 

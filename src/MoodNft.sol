@@ -12,23 +12,22 @@ enum Mood {
 error MoodNft__NotApprovedOrOwner();
 
 contract MoodNft is ERC721 {
-    string private constant _name = "MoodNft";
-    string private constant _symbol = "MNFT";
+    string private constant NAME = "MoodNft";
+    string private constant SYMBOL = "MNFT";
     uint256 private sTokenCounter;
-    mapping(uint256 => string) private sTokenIdToUri;
     string private sSadImageUri;
     string private sHappyImageUri;
     mapping(uint256 => Mood) private sTokenIdToMood;
     address private sOwner;
 
-    constructor(string memory happyImageUri, string memory sadImageUri) ERC721(_name, _symbol) {
+    constructor(string memory happyImageUri, string memory sadImageUri) ERC721(NAME, SYMBOL) {
         sTokenCounter = 0;
         sHappyImageUri = happyImageUri;
         sSadImageUri = sadImageUri;
         sOwner = msg.sender;
     }
 
-    function mint() public {
+    function mint() external {
         _safeMint(msg.sender, sTokenCounter);
         sTokenCounter++;
     }
